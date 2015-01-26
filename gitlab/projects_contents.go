@@ -30,7 +30,9 @@ func (s *ProjectsService) Tree(projectID int, path string, ref_name string) (*[]
 
 	params := url.Values{}
 	params.Add("path", path)
-	params.Add("ref_name", ref_name)
+	if ref_name != "" {
+		params.Add("ref_name", ref_name)
+	}
 	u := fmt.Sprintf("projects/%v/repository/tree?%v", projectID, params.Encode())
 
 	req, err := s.client.NewRequest("GET", u, nil)
